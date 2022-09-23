@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react"
+import axios from 'axios'
 
 const LogIn = () => {
+   
     const [isSignup, setIsSignup] = useState(false);
     const [inputs, setInputs] = useState({
         name:"", email:"", password:"",
@@ -22,7 +24,7 @@ const LogIn = () => {
         setInputs({name:'',email:"", password:""})
     }
   return (
-    <div>
+    <div style={{backgroundColor: '#fff'}}>
         <form onSubmit={handleSubmit}>
             <Box 
                 display="flex"
@@ -75,6 +77,7 @@ const LogIn = () => {
                     placeholder='Password' 
                 />
                 <Button 
+                    
                     type="submit"
                     sx={{
                         marginTop: 3,
