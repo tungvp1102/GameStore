@@ -4,7 +4,7 @@ import { Outlet } from "../../components/Layout/Outlet/Outlet";
 
 function Browse() {
   return ( 
-    <Box sx={{ backgroundColor: "#000", display: 'flex', }}>
+    <Box sx={{ display: 'flex'}}>
       <SideBar />
       <Outlet />
     </Box>

@@ -18,7 +18,7 @@ function Footer() {
           spacing={2}
           sx={{ paddingBottom: "4px", mb: "50px", ml: "10px" }}
         >
-          <Grid xs={3}>
+          <Grid item xs={3}>
             <Stack>
               <H3Title>Company</H3Title>
               <H3Text>About</H3Text>
@@ -26,7 +26,7 @@ function Footer() {
               <H3Text>Careers</H3Text>
             </Stack>
           </Grid>
-          <Grid xs={3}>
+          <Grid item xs={3}>
             <Stack>
               <H3Title>Consoles</H3Title>
               <H3Text>Playstaion</H3Text>
@@ -34,14 +34,14 @@ function Footer() {
               <H3Text>Swich</H3Text>
             </Stack>
           </Grid>
-          <Grid xs={3}>
+          <Grid item xs={3}>
             <Stack>
               <H3Title>Resources</H3Title>
               <H3Text>Help Center</H3Text>
               <H3Text>Contact</H3Text>
             </Stack>
           </Grid>
-          <Grid xs={3}>
+          <Grid item xs={3}>
             <Stack>
               <H3Title>Product Help</H3Title>
               <H3Text>Support</H3Text>
