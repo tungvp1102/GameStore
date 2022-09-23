@@ -6,19 +6,25 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import { Layout } from "./components/Layout";
 import Cart from "./Pages/Cart/Cart"
 import LogIn from "./Pages/LogIn/LogIn"
+import CartProvider from "./context/CartContext"
 
 function App() {
-  return <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route element={<Layout />}>
-        <Route path="/browse" element={<Browse />} />
-        <Route path="/404" element={<ErrorPage />} />
-        <Route path="/cart" element={<Cart />} />
+  return (
+  <CartProvider>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route element={<Layout />}>
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/404" element={<ErrorPage />} />
+          <Route path="/cart" element={<Cart />} />
+          
+        </Route>
         <Route path="/log-in" element={<LogIn />} />
-      </Route>
-    </Routes>
-  </Router>;
+      </Routes>
+    </Router>
+  </CartProvider>
+  )
 }
 
 export default App;

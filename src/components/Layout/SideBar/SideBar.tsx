@@ -13,7 +13,7 @@ import { Box, Button, styled } from "@mui/material";
 
 function SideBar() {
   return(
-  <Box>
+  <Box mt={20}>
     <Box>
       <H3Title>Filters</H3Title>
       <ButtonSideBar>
