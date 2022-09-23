@@ -280,7 +280,7 @@ const ButtonPage = styled("button")({
   },
 });
 
-const ButtonNavigation = styled("button")({
+const ButtonNavigation = styled("div")({
   width: "215px",
   height: "40px",
   backgroundColor: "#fff",
