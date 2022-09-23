@@ -1,6 +1,7 @@
 import { AppBar, Button, Typography, Box, Toolbar } from "@mui/material";
 import videoHome from "../../assets/images/pyke.mp4";
 import Game from "../../assets/images/game.svg";
+import GameBlack from "../../assets/images/gameblack.svg";
 import Browse from "../../assets/images/browse.svg";
 import UserCart from "../../components/Layout/UserCart/UserCart";
 import Enter from "../../assets/images/enter.svg";
@@ -164,13 +165,12 @@ function Home() {
           mr={"40px"}
           sx={{
             height: "400px",
-            maxWidth: "280px",
+            maxWidth: "260px",
             padding: "22px 30px 30px",
             borderRadius: "30px",
             backdropFilter: "blur(8px)",
             backgroundColor: "rgba(250,250,250, 0.285)",
             display: "flex",
-            alignItems: "flex-end",
             flexDirection: "column",
             justifyContent: "center",
             gap: "5px",
@@ -191,7 +191,7 @@ function Home() {
           </Typography>
           <ButtonNavigation>
             <Button href="/" sx={{ textTransform: "none", gap: "15px" }}>
-              <Icon alt="icon" src={Game} />
+              <Icon alt="icon" src={GameBlack} />
               <H3TextPage>Game Page</H3TextPage>
             </Button>
           </ButtonNavigation>
@@ -281,8 +281,8 @@ const ButtonPage = styled("button")({
 });
 
 const ButtonNavigation = styled("div")({
-  width: "215px",
-  height: "40px",
+  width: "165px",
+  height: "21px",
   backgroundColor: "#fff",
   border: "1px transparent",
   borderRadius: "18px",
