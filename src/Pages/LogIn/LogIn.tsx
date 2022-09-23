@@ -7,23 +7,23 @@ const LogIn = () => {
     const [inputs, setInputs] = useState({
         name:"", email:"", password:"",
     });
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         setInputs((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value, 
         }))
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         console.log(inputs);
     };
     const resetState = () => {
         setIsSignup(!isSignup);
-        setInputs({name:'',email:"", password:''})
+        setInputs({name:'',email:"", password:""})
     }
   return (
     <div>
-        <form>
+        <form onSubmit={handleSubmit}>
             <Box 
                 display="flex"
                 flexDirection={"column"}
@@ -46,6 +46,7 @@ const LogIn = () => {
                 </Typography>
                 {isSignup && (
                     <TextField 
+                        onChange={handleChange}
                         value={inputs.name}
                         name="name"
                         margin="normal" 
@@ -56,6 +57,7 @@ const LogIn = () => {
                 )}
                 
                 <TextField 
+                    onChange={handleChange}
                     value={inputs.email}
                     name="email"
                     margin="normal" 
@@ -64,6 +66,7 @@ const LogIn = () => {
                     placeholder='Email' 
                 />
                 <TextField 
+                    onChange={handleChange}
                     value={inputs.password}
                     name="password" 
                     margin="normal" 
@@ -72,6 +75,7 @@ const LogIn = () => {
                     placeholder='Password' 
                 />
                 <Button 
+                    type="submit"
                     sx={{
                         marginTop: 3,
                         borderRadius: 3
@@ -79,13 +83,15 @@ const LogIn = () => {
                     variant='contained' 
                     color='warning'
                 >
-                    Login
+                    {isSignup ? "Signup" : "Login"}
                 </Button>
-                <Button onClick={()=>setIsSignup(!isSignup)} sx={{
+                <Button 
+                    onClick={resetState} 
+                    sx={{
                         marginTop: 3,
                         borderRadius: 3
                     }}>
-                    Change to {isSignup ? "Signup" : "Login"}
+                    Change to {isSignup ? "Login" : "Signup"}
                 </Button>
             </Box>
         </form>
