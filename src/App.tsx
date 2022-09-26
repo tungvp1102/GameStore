@@ -6,6 +6,7 @@ import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 import { Layout } from "./components/Layout/Layout";
 import Cart from "./Pages/Cart/Cart"
 import LogIn from "./Pages/LogIn/LogIn"
+import SignUp from "./Pages/SignUp/SignUp";
 import CartProvider from "./context/CartContext"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/log-in" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   </CartProvider>
