@@ -4,8 +4,30 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import IconColumns from "../../../assets/images/columns.svg";
 import IconGrid from "../../../assets/images/grid.svg";
 import styled from "@emotion/styled";
+import axios from "axios";
+import Product from "../Product/product";
 
 export const Outlet = () => {
+  const [data, setData] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    // fetch("https://6322fc6aa624bced30839d40.mockapi.io/products")
+    //   .then((res) => {
+    //     res.json();
+    //   })
+    //   .then((res) => {
+    //     // setData(res?.data)
+    //     console.log('data', res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    axios
+      .get("https://6322fc6aa624bced30839d40.mockapi.io/products")
+      .then((res) => {
+        setData(res.data);
+      });
+  }, []);
   const [layout, setLayout] = useState<number>(3);
   return (
     <Box pb={"280px"} sx={{ display: "block" }}>
@@ -88,12 +110,45 @@ export const Outlet = () => {
             Display options:
           </Typography>
           <Button onClick={() => setLayout(3)}>
-            <Icon src={IconGrid}/>
+            <Icon src={IconGrid} />
           </Button>
           <Button onClick={() => setLayout(8)}>
-            <Icon src={IconColumns}/>
+            <Icon src={IconColumns} />
           </Button>
         </Box>
+      </Box>
+
+      <Box>
+        <Grid 
+          container
+          spacing={2}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {data && data.length > 0 ? (
+            <Grid>
+              {data.map((item, index) => {
+                return (
+                  <Grid key={index} style={{ display: "flex" }}>
+                    <Product
+                      id={item.id}
+                      to={`/${item.id}`}
+                      name={item.name}
+                      src={item.avatar}
+                      money={item.price}
+                      like={item.isLike}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          ) : (
+            "Khong co du lieu"
+          )}
+        </Grid>
       </Box>
     </Box>
   );

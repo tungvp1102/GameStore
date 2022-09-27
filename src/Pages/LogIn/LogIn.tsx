@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState, useRef } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Home from "../Home/Home";
 
 const LogIn = () => {
@@ -11,6 +11,8 @@ const LogIn = () => {
   });
   const [flag, setFlag] = useState(false);
   const [home, setHome] = useState(true);
+  const navigate = useNavigate();
+
 
   const handleChange = (e: any) => {
     setInputs((prevState) => ({
@@ -27,11 +29,8 @@ const LogIn = () => {
         setFlag(true);
         console.log("empty");
 
-    }else if (inputs.password !== pass || inputs.email !== mail){
-        setFlag(true)
-    }else{
-        setHome(!home)
-        setFlag(false);
+    }else if (inputs.password === pass || inputs.email === mail){
+        navigate("/", { replace: true });
     }
   };
   
