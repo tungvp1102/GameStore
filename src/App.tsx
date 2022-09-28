@@ -8,6 +8,9 @@ import Cart from "./Pages/Cart/Cart"
 import LogIn from "./Pages/LogIn/LogIn"
 import SignUp from "./Pages/SignUp/SignUp";
 import CartProvider from "./context/CartContext"
+import { PrivateRoutes } from "./components/PrivateRouter";
+
+
 
 function App() {
   return (
@@ -16,10 +19,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route element={<Layout />}>
-          <Route path="/browse" element={<Browse />} >
+          <Route path="/browse" element={<Browse /> } />
+          <Route element={<PrivateRoutes/>} >
+          <Route path="/cart" element={<Cart />} />
           </Route>
           <Route path="/404" element={<ErrorPage />} />
-          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/signup" element={<SignUp />} />

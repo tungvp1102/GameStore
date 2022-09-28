@@ -1,6 +1,6 @@
-import Wishlist from "../../../assets/images/wishlist.svg";
-import Ratings from "../../../assets/images/ratings.svg";
-import Reviews from "../../../assets/images/reviews.svg";
+import { ReactComponent as Wishlist } from "../../../assets/images/wishlist.svg";
+import { ReactComponent as Ratings } from "../../../assets/images/ratings.svg";
+import { ReactComponent as Reviews } from "../../../assets/images/reviews.svg";
 import Action from "../../../assets/images/action.svg";
 import Strategy from "../../../assets/images/strategy.svg";
 import RPG from "../../../assets/images/RPG.svg";
@@ -10,27 +10,67 @@ import Puzzle from "../../../assets/images/puzzle.svg";
 import Racing from "../../../assets/images/racing.svg";
 import Sports from "../../../assets/images/sports.svg";
 import { Box, Button, styled } from "@mui/material";
+import { useContext } from "react"
+import { ProductContext } from "../../../context/ProductContext"
 
 function SideBar() {
+  const { dataWishlist, setDataUI, dataUI } = useContext(ProductContext);
+  const handleWishList = () => {
+    setDataUI(dataWishlist);
+  };
+
   return(
-  <Box mt={20}>
+  <Box mt={0}>
     <Box>
       <H3Title>Filters</H3Title>
       <ButtonSideBar>
-        <Button sx={{ textTransform: "none", gap: "15px", p: "0" }}>
-          <Icon src={Wishlist} alt="icon"/>
+        <Button onClick={handleWishList} sx={{ textTransform: "none", gap: "15px", p: "0" }}>
+          <Wishlist
+            style={{
+              width: "31px",
+              height: "37px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "2px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
           <H3Text>Wishlist</H3Text>
         </Button>
       </ButtonSideBar>
       <ButtonSideBar>
         <Button sx={{ textTransform: "none", gap: "15px", p: "0" }}>
-          <Icon src={Ratings} alt="icon"/>
+          <Ratings
+            style={{
+              width: "31px",
+              height: "37px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "2px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
           <H3Text>Ratings</H3Text>
         </Button>
       </ButtonSideBar>
       <ButtonSideBar>
         <Button sx={{ textTransform: "none", gap: "15px", p: "0" }}>
-          <Icon src={Reviews} alt="icon"/>
+          <Reviews
+            style={{
+              width: "31px",
+              height: "37px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
           <H3Text>Reviews</H3Text>
         </Button>
       </ButtonSideBar>

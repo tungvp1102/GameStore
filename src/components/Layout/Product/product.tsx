@@ -10,26 +10,30 @@ import {
 import { Link } from "react-router-dom";
 import { ProductType } from "../../../@type/cart";
 import IconAdd from "../../../assets/images/add.svg";
-// import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
+import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
+import { CartContext } from "../../../context/CartContext"
 import { putData, postData } from "../../../method";
 
 const Product = ({ id, to, src, name, money, like }: ProductType) => {
   const [isLike, setIsLike] = useState<boolean>(like);
+  const { cart, setCart } = useContext(CartContext);
   const handleLike = () => {
-    const res = putData(`/${id}`, {
-        isLike: !like,
-    });
-    res.then((data) => {
-        setIsLike(data?.data.isLike);
-    })
-
+    setIsLike(!isLike);
   }
+  const handleAddCart = () => {
+    postData("", { id: id, name: name, money: money }).then((res) => setCart([res.data, ...cart]));
+  };
+
   return (
     <Card
       sx={{
         minWidth: "280px",
         maxWidth: "500px",
         borderRadius: "12px",
+        width: "100%",
+        transition: "all 0.3s",
+        border: "1px transparent",
+        backgroundColor: "#202020",
       }}
     >
       <Link to={to}>
@@ -43,7 +47,7 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
           }}
         />
       </Link>
-      <CardActions>
+      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
           size="small"
           sx={{
@@ -52,6 +56,7 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
             textTransform: "none",
             gap: "15px",
           }}
+          onClick={handleAddCart}
         >
           Add to cart
           <img
@@ -76,14 +81,14 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
           {name}
         </Link>
         <Button onClick={handleLike}>
-          {/* <IconLike
+          <IconLike
             style={{
               height: "18px",
               width: "18px",
               marginTop: "20px",
               fill: isLike ? "red" : "rgb(204, 204, 204)",
             }}
-          /> */}
+          />
         </Button>
       </CardContent>
     </Card>

@@ -29,9 +29,10 @@ export const Outlet = () => {
       });
   }, []);
   const [layout, setLayout] = useState<number>(3);
+
   return (
-    <Box pb={"280px"} sx={{ display: "block" }}>
-      <Box>
+    <Box pb={"280px"} sx={{ display: "block", flexDirection: "column", width:"100%"}}>
+      <Box >
         <Typography
           variant="h1"
           sx={{
@@ -118,11 +119,12 @@ export const Outlet = () => {
         </Box>
       </Box>
 
-      <Box>
+      <Box 
+      >
         <Grid 
-          container
-          spacing={2}
+          container spacing={2}
           sx={{
+            width:"100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -132,13 +134,22 @@ export const Outlet = () => {
             <Grid>
               {data.map((item, index) => {
                 return (
-                  <Grid key={index} style={{ display: "flex" }}>
+                  <Grid 
+                    item={true}
+                    xs={layout}
+                    key={index} 
+                    style={{ 
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center", 
+                    }}
+                  >
                     <Product
                       id={item.id}
                       to={`/${item.id}`}
                       name={item.name}
                       src={item.avatar}
-                      money={item.price}
+                      money={item.money}
                       like={item.isLike}
                     />
                   </Grid>
@@ -146,7 +157,7 @@ export const Outlet = () => {
               })}
             </Grid>
           ) : (
-            "Khong co du lieu"
+            "no data"
           )}
         </Grid>
       </Box>
@@ -159,5 +170,4 @@ const Icon = styled("img")({
   height: "48px",
   cursor: "pointer",
   transition: "all .2s",
-  fill: "#fff",
 });

@@ -1,9 +1,13 @@
 import Githubcat from "../../../assets/images/githubcat.svg";
-import Cart from "../../../assets/images/cart.svg";
+import IconCart from "../../../assets/images/cart.svg";
 import { Button, Box, styled } from "@mui/material";
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { CartContext } from "../../../context/CartContext";
 
 function UserCart() {
+  const { cart } = useContext(CartContext);
+
   return (
       <Box>
         <Link to="/log-in" style={{textDecoration: 'none'}}>
@@ -21,14 +25,15 @@ function UserCart() {
         </Link>
       
         <Link to="/cart" style={{textDecoration: 'none'}}>
-          <Button sx={{
+          <Button 
+            sx={{
               textTransform: "none",
               color: "#fff",
               gap: "16px",
               marginLeft: "30px",
             }}>
-            <Icon alt="icon" src={Cart} />
-            <H3Text>Cart: 0</H3Text>
+            <Icon alt="icon" src={IconCart} />
+            <H3Text>{cart.length}</H3Text>
           </Button>
         </Link>
       </Box>
