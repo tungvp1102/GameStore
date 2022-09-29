@@ -13,15 +13,24 @@ import IconAdd from "../../../assets/images/add.svg";
 import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
 import { CartContext } from "../../../context/CartContext"
 import { putData, postData } from "../../../method";
+import { ProductContext } from "../../../context/ProductContext";
 
 const Product = ({ id, to, src, name, money, like }: ProductType) => {
+  const [add, setAdd] = useState<string>("Add to cart");
   const [isLike, setIsLike] = useState<boolean>(like);
   const { cart, setCart } = useContext(CartContext);
+  const {dataWishlist, setDataWishlist} = useContext(ProductContext)
   const handleLike = () => {
-    setIsLike(!isLike);
+    putData(`products/${id}`, {
+      wishlist: !isLike,      
+    }).then((res) => {
+      setIsLike(res?.data.wishlist);
+      setDataWishlist([...dataWishlist, res?.data])
+    });
   }
   const handleAddCart = () => {
-    postData("", { id: id, name: name, money: money }).then((res) => setCart([res.data, ...cart]));
+    postData("cart", { id: id, name: name, money: money }).then((res) => setCart([res.data, ...cart]));
+    setAdd("Added");
   };
 
   return (
@@ -36,7 +45,7 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
         backgroundColor: "#202020",
       }}
     >
-      <Link to={to}>
+      <Link to='/store'>
         <CardMedia
           component="img"
           image={src}
@@ -58,7 +67,7 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
           }}
           onClick={handleAddCart}
         >
-          Add to cart
+          {add}
           <img
             src={IconAdd}
             alt="icon"

@@ -11,14 +11,16 @@ type PropChildren = {
 };
 
 export const ProductProvider: React.FC<PropChildren> = ({ children }) => {
+  const [allData, setAllData] = React.useState<ProductType[]>([]);
   const [dataWishlist, setDataWishlist] = React.useState<ProductType[]>([]);
   const [dataUI, setDataUI] = React.useState<ProductType[]>([]);
   
   React.useEffect(() => {
-    getData("").then((res) => {
+    getData("products").then((res) => {
+        setAllData(res?.data);
         setDataUI(res?.data);
       });
-    getData("?wishlist=true").then((res) => {
+    getData("products?wishlist=true").then((res) => {
       setDataWishlist(res?.data);
     });
   });
@@ -30,6 +32,8 @@ export const ProductProvider: React.FC<PropChildren> = ({ children }) => {
         setDataUI,
         dataWishlist,
         setDataWishlist,
+        allData,
+        setAllData,
       }}
     >
       {children}

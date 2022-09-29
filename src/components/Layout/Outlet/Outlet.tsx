@@ -5,7 +5,7 @@ import IconColumns from "../../../assets/images/columns.svg";
 import IconGrid from "../../../assets/images/grid.svg";
 import styled from "@emotion/styled";
 import axios from "axios";
-import Product from "../Product/product";
+import Product from "../Product/Product";
 
 export const Outlet = () => {
   const [data, setData] = React.useState<any[]>([]);
@@ -146,7 +146,7 @@ export const Outlet = () => {
                   >
                     <Product
                       id={item.id}
-                      to={`/${item.id}`}
+                      to={`procucts/${item.id}`}
                       name={item.name}
                       src={item.avatar}
                       money={item.money}

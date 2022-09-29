@@ -7,10 +7,11 @@ import { Layout } from "./components/Layout/Layout";
 import Cart from "./Pages/Cart/Cart"
 import LogIn from "./Pages/LogIn/LogIn"
 import SignUp from "./Pages/SignUp/SignUp";
+import Game from "./components/Layout/Game/Game";
+import Store from "./Pages/Store/Store";
 import CartProvider from "./context/CartContext"
 import { PrivateRoutes } from "./components/PrivateRouter";
-
-
+import { Outlet } from "./components/Layout/Outlet/Outlet";
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/browse" element={<Browse /> } />
           <Route element={<PrivateRoutes/>} >
+          <Route path="/store" element={<Store />}>
+            
+            <Route path="/store/:product" element={<Game />} />
+          </Route>
           <Route path="/cart" element={<Cart />} />
           </Route>
           <Route path="/404" element={<ErrorPage />} />

@@ -15,6 +15,7 @@ import { ProductContext } from "../../../context/ProductContext"
 
 function SideBar() {
   const { dataWishlist, setDataUI, dataUI } = useContext(ProductContext);
+  console.log("setDataUI", setDataUI, dataUI);
   const handleWishList = () => {
     setDataUI(dataWishlist);
   };

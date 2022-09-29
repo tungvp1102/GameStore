@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const PROXY = "https://6322fc6aa624bced30839d40.mockapi.io/products"
+const PROXY = "https://6322fc6aa624bced30839d40.mockapi.io/"
 
 export async function getData(url: string) {
     try {
