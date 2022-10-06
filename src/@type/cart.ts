@@ -10,11 +10,12 @@ export type CartContextType = {
 };
 
 export interface ProductType {
-  id: string;
+  id: number;
   to: string;
   src: string;
   name: string;
   money: string;
   like: boolean;
   about?:string;
+  ratting?: boolean;
 }

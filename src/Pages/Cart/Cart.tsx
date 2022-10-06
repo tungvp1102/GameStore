@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 function Cart() {
     const { cart, setCart } = useContext(CartContext);
     const handleDelete = (id: number) => {
-        deleteData(`/${id}`);
+        deleteData(`cart/${id}`);
         setCart(cart.filter((item) => item.id !== id));
       };
 

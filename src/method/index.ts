@@ -6,8 +6,8 @@ export async function getData(url: string) {
     try {
       const res = await axios.get(`${PROXY}/${url}`);
       return res;
-    } catch (err) {
-      console.log("error", err);
+    } catch (error) {
+      console.log("error", error);
     }
   }
   

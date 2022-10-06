@@ -12,10 +12,15 @@ import Sports from "../../../assets/images/sports.svg";
 import { Box, Button, styled } from "@mui/material";
 import { useContext } from "react"
 import { ProductContext } from "../../../context/ProductContext"
+import { useAtom } from "jotai";
+import { productAtom } from "../../../store/Atom";
 
 function SideBar() {
   const { dataWishlist, setDataUI, dataUI } = useContext(ProductContext);
-  console.log("setDataUI", setDataUI, dataUI);
+  
+  // const [data , setData] =useAtom(productAtom)
+  // console.log(data);
+ 
   const handleWishList = () => {
     setDataUI(dataWishlist);
   };

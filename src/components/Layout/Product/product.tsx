@@ -14,6 +14,8 @@ import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
 import { CartContext } from "../../../context/CartContext"
 import { putData, postData } from "../../../method";
 import { ProductContext } from "../../../context/ProductContext";
+import { useAtom } from "jotai";
+import { productAtom } from "../../../store/Atom";
 
 const Product = ({ id, to, src, name, money, like }: ProductType) => {
   const [add, setAdd] = useState<string>("Add to cart");
@@ -21,13 +23,16 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
   const { cart, setCart } = useContext(CartContext);
   const {dataWishlist, setDataWishlist} = useContext(ProductContext)
   const handleLike = () => {
+    setIsLike(!isLike);
     putData(`products/${id}`, {
       wishlist: !isLike,      
     }).then((res) => {
-      setIsLike(res?.data.wishlist);
       setDataWishlist([...dataWishlist, res?.data])
-    });
+    }).then(() => {
+      
+    })
   }
+  const [data , setData] =useAtom(productAtom)
   const handleAddCart = () => {
     postData("cart", { id: id, name: name, money: money }).then((res) => setCart([res.data, ...cart]));
     setAdd("Added");

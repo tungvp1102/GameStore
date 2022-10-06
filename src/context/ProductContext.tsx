@@ -14,7 +14,8 @@ export const ProductProvider: React.FC<PropChildren> = ({ children }) => {
   const [allData, setAllData] = React.useState<ProductType[]>([]);
   const [dataWishlist, setDataWishlist] = React.useState<ProductType[]>([]);
   const [dataUI, setDataUI] = React.useState<ProductType[]>([]);
-  
+  const [dataRatting, setDataRatting] = React.useState<ProductType[]>([]);
+
   React.useEffect(() => {
     getData("products").then((res) => {
         setAllData(res?.data);
@@ -23,8 +24,11 @@ export const ProductProvider: React.FC<PropChildren> = ({ children }) => {
     getData("products?wishlist=true").then((res) => {
       setDataWishlist(res?.data);
     });
+    getData('products?ratting=true').then((res) => {
+      setDataRatting(res?.data);
+    });
   });
-
+  
   return (
     <ProductContext.Provider
       value={{
@@ -34,6 +38,8 @@ export const ProductProvider: React.FC<PropChildren> = ({ children }) => {
         setDataWishlist,
         allData,
         setAllData,
+        dataRatting,
+        setDataRatting
       }}
     >
       {children}

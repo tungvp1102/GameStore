@@ -22,7 +22,7 @@ const CartProvider: React.FC<PropChildren> = ({ children }) => {
             {children}
         </CartContext.Provider>
     );
-}
+};
 
 
 export default CartProvider;
