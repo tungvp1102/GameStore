@@ -11,22 +11,21 @@ import { ProductType } from "../../@type/product";
 // }
 function Browse() {
   
-  const [data ,setData] = useState<ProductType[]>([])
-  useEffect(()=>{
-      const getData = async() =>{
-        const res = await axios.get("https://6322fc6aa624bced30839d40.mockapi.io/products")
-        setData(res.data)
-      }
+  // const [data ,setData] = useState<ProductType[]>([])
+  // useEffect(()=>{
+  //     const getData = async() =>{
+  //       const res = await axios.get("https://6322fc6aa624bced30839d40.mockapi.io/products")
+  //       setData(res.data)
+  //     }
 
-     getData()
-  },[])
-  console.log(data);
+  //    getData()
+  // },[])
   
   return ( 
     
     <Box sx={{ padding: "110px 40px 0", backgroundColor: "#000", display: 'flex', }}>
       <SideBar />
-      <Outlet product={data}/>
+      <Outlet />
     </Box>
   );
 }

@@ -166,7 +166,7 @@ function Home() {
           sx={{
             height: "400px",
             maxWidth: "260px",
-            padding: "22px 30px 30px",
+            padding: "2px 30px 10px",
             borderRadius: "30px",
             backdropFilter: "blur(8px)",
             backgroundColor: "rgba(250,250,250, 0.285)",

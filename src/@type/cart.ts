@@ -1,12 +1,14 @@
+type Setter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
+
 export interface CartType {
   id: number;
   name: string;
-  price: string;
+  money: string;
 };
 
 export type CartContextType = {
   cart: CartType[];
-  setCart: React.Dispatch<React.SetStateAction<CartType[]>>
+  setCart: Setter<CartType[]>
 };
 
 export interface ProductType {
@@ -14,8 +16,9 @@ export interface ProductType {
   to: string;
   src: string;
   name: string;
+  isAdded: boolean;
   money: string;
   like: boolean;
   about?:string;
-  ratting?: boolean;
+  rating?: boolean;
 }

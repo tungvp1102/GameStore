@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import IconColumns from "../../../assets/images/columns.svg";
-import IconGrid from "../../../assets/images/grid.svg";
+import { ReactComponent as IconColumns } from "../../../assets/images/columns.svg";
+import { ReactComponent as IconGrid } from "../../../assets/images/grid.svg";
 import styled from "@emotion/styled";
 // import {useAtom} from 'jotai'
 // import axios from "axios";
@@ -10,13 +10,21 @@ import styled from "@emotion/styled";
 import Product from "../Product/Product";
 import { ProductContext } from "../../../context/ProductContext";
 import { ProductType } from "../../../@type/product";
-interface Props {
-  product: ProductType[];
-}
-export const Outlet: React.FC<Props> = ({ product }) => {
-  console.log(product);
-
+import { CartContext } from "../../../context/CartContext";
+// interface Props {
+//   product: ProductType[];
+// }
+// export const Outlet: React.FC<Props> = ({ product }) => {
+//   console.log(product);
+export const Outlet = () => {
+  const { cart } = useContext(CartContext);
   const [layout, setLayout] = useState<number>(3);
+  const { dataUI, setDataUI, allData, filterData, setFilterData } =
+    useContext(ProductContext);
+  const handlerClearFilter = () => {
+    setDataUI(allData);
+    setFilterData("None");
+  };
 
   return (
     <Box
@@ -50,7 +58,7 @@ export const Outlet: React.FC<Props> = ({ product }) => {
 
       <Box
         sx={{
-          mt: "28px",
+          mt: "20px",
           mb: "28px",
           display: "flex",
           justifyContent: "space-between",
@@ -71,7 +79,7 @@ export const Outlet: React.FC<Props> = ({ product }) => {
               fontSize: "14px",
             }}
           >
-            Filter by: None
+            Filter by: {filterData}
           </Button>
           <Button
             sx={{
@@ -86,6 +94,7 @@ export const Outlet: React.FC<Props> = ({ product }) => {
               padding: "8px 22px",
               fontSize: "14px",
             }}
+            onClick={handlerClearFilter}
           >
             Clear Filter
           </Button>
@@ -101,11 +110,53 @@ export const Outlet: React.FC<Props> = ({ product }) => {
           >
             Display options:
           </Typography>
-          <Button onClick={() => setLayout(3)}>
-            <Icon src={IconGrid} />
+          <Button
+            disableRipple
+            sx={{
+              height: "48px",
+              backgroundColor: "#282828",
+              fill: layout === 3 ? "#fff" : "rgb(111, 111, 111)",
+              border: "1px transparent",
+              borderRadius: "8px",
+              m: "0 5px",
+              "&: active": {
+                transform: "scale(0.9)",
+              },
+            }}
+            onClick={() => setLayout(3)}
+          >
+            <IconGrid
+              style={{
+                width: "48px",
+                height: "48px",
+                cursor: "pointer",
+                transition: "all .2s",
+              }}
+            />
           </Button>
-          <Button onClick={() => setLayout(8)}>
-            <Icon src={IconColumns} />
+          <Button
+            disableRipple
+            sx={{
+              height: "48px",
+              backgroundColor: "#282828",
+              fill: layout === 8 ? "#fff" : "rgb(111, 111, 111)",
+              border: "1px transparent",
+              borderRadius: "8px",
+              m: "0 5px",
+              "&: active": {
+                transform: "scale(0.9)",
+              },
+            }}
+            onClick={() => setLayout(8)}
+          >
+            <IconColumns
+              style={{
+                width: "48px",
+                height: "48px",
+                cursor: "pointer",
+                transition: "all .2s",
+              }}
+            />
           </Button>
         </Box>
       </Box>
@@ -117,41 +168,45 @@ export const Outlet: React.FC<Props> = ({ product }) => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "flex-start",
           }}
         >
-          {product?.map((item, index) => {
-            return (
-              <Grid
-                item={true}
-                xs={layout}
-                key={index}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Product
-                  id={item.id}
-                  to={`/store/${item.id}`}
-                  name={item.name}
-                  src={item.avatar}
-                  money={item.money}
-                  like={item.wishlist}
-                />
-              </Grid>
-            );
-          })}
+          {dataUI && dataUI.length > 0
+            ? dataUI.map((product, index) => {
+                return (
+                  <Grid
+                    item={true}
+                    xs={layout}
+                    key={index}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Product
+                      id={product.id}
+                      to={`/store/${product.id}`}
+                      name={product.name}
+                      src={product.cover}
+                      money={product.price}
+                      like={product.isLiked}
+                      isAdded={
+                        cart.find((item) => {
+                          return item.id === product.id;
+                        })
+                          ? true
+                          : false
+                      }
+                    />
+                  </Grid>
+                );
+              })
+            : "NO DATA"}
         </Grid>
       </Box>
     </Box>
   );
 };
 
-const Icon = styled("img")({
-  width: "48px",
-  height: "48px",
-  cursor: "pointer",
-  transition: "all .2s",
-});
+

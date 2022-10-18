@@ -1,28 +1,104 @@
 import { ReactComponent as Wishlist } from "../../../assets/images/wishlist.svg";
 import { ReactComponent as Ratings } from "../../../assets/images/ratings.svg";
 import { ReactComponent as Reviews } from "../../../assets/images/reviews.svg";
-import Action from "../../../assets/images/action.svg";
-import Strategy from "../../../assets/images/strategy.svg";
-import RPG from "../../../assets/images/RPG.svg";
-import Shooter from "../../../assets/images/shooter.svg";
-import Adventure from "../../../assets/images/adventure.svg";
-import Puzzle from "../../../assets/images/puzzle.svg";
-import Racing from "../../../assets/images/racing.svg";
-import Sports from "../../../assets/images/sports.svg";
+import { ReactComponent as Action } from "../../../assets/images/action.svg";
+import { ReactComponent as Strategy } from "../../../assets/images/strategy.svg";
+import { ReactComponent as RPG } from "../../../assets/images/RPG.svg";
+import { ReactComponent as Shooter } from "../../../assets/images/shooter.svg";
+import { ReactComponent as Adventure } from "../../../assets/images/adventure.svg";
+import { ReactComponent as Puzzle } from "../../../assets/images/puzzle.svg";
+import { ReactComponent as Racing } from "../../../assets/images/racing.svg";
+import { ReactComponent as Sports } from "../../../assets/images/sports.svg";
 import { Box, Button, styled } from "@mui/material";
 import { useContext } from "react"
 import { ProductContext } from "../../../context/ProductContext"
-import { useAtom } from "jotai";
-import { productAtom } from "../../../store/Atom";
+// import { useAtom } from "jotai";
+// import { productAtom } from "../../../store/Atom";
 
 function SideBar() {
-  const { dataWishlist, setDataUI, dataUI } = useContext(ProductContext);
+  const { setDataUI, dataUI, allData, setFilterData } = useContext(ProductContext);
   
   // const [data , setData] =useAtom(productAtom)
-  // console.log(data);
  
   const handleWishList = () => {
-    setDataUI(dataWishlist);
+    setDataUI(
+      allData.filter((item) => {
+        return item.isLiked === true;
+      })
+    );
+    setFilterData("Wishlist");
+  };
+  const handleAction = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Action';
+      })
+    );
+    setFilterData("Action");
+  };
+  const handleStrategy = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Strategy';
+      })
+    );
+    setFilterData("Strategy");
+  };
+  const handleRPG = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'RPG';
+      })
+    );
+    setFilterData("RPG");
+  };
+  const handleShooter = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Shooter';
+      })
+    );
+    setFilterData("Shooter");
+  };
+  const handleAdventure = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Adventure';
+      })
+    );
+    setFilterData("Adventure");
+  };
+  const handlePuzzle = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Puzzle';
+      })
+    );
+    setFilterData("Puzzle");
+  };
+  const handleRacing = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Racing';
+      })
+    );
+    setFilterData("Racing");
+  };
+  const handleSports = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.genre === 'Sports';
+      })
+    );
+    setFilterData("Sports");
+  };
+  const handleRatings = () => {
+    setDataUI(
+      allData.filter((item) => {
+        return item.rating >= 80;
+      })
+    );
+    setFilterData("Ratings");
   };
 
   return(
@@ -34,7 +110,7 @@ function SideBar() {
           <Wishlist
             style={{
               width: "31px",
-              height: "37px",
+              height: "36px",
               border: "1px transparent",
               borderRadius: "8px",
               padding: "2px 5px 4px",
@@ -47,11 +123,11 @@ function SideBar() {
         </Button>
       </ButtonSideBar>
       <ButtonSideBar>
-        <Button sx={{ textTransform: "none", gap: "15px", p: "0" }}>
+        <Button onClick={handleRatings} sx={{ textTransform: "none", gap: "15px", p: "0" }}>
           <Ratings
             style={{
               width: "31px",
-              height: "37px",
+              height: "36px",
               border: "1px transparent",
               borderRadius: "8px",
               padding: "2px 5px 4px",
@@ -68,7 +144,7 @@ function SideBar() {
           <Reviews
             style={{
               width: "31px",
-              height: "37px",
+              height: "36px",
               border: "1px transparent",
               borderRadius: "8px",
               padding: "6px 5px 4px",
@@ -85,50 +161,138 @@ function SideBar() {
     <Box>
         <H3Title>Genres</H3Title>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Action} alt="icon"/>
+          <Button onClick={handleAction} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Action 
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Action</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Strategy} alt="icon"/>
+          <Button onClick={handleStrategy} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Strategy
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Strategy</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={RPG} alt="icon"/>
+          <Button onClick={handleRPG} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <RPG
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>RPG</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Shooter} alt="icon"/>
+          <Button onClick={handleShooter} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Shooter
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Shooter</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Adventure} alt="icon"/>
+          <Button onClick={handleAdventure} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Adventure
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Adventure</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Puzzle} alt="icon"/>
+          <Button onClick={handlePuzzle} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Puzzle
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Puzzle</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-          <Icon src={Racing} alt="icon"/>
+          <Button onClick={handleRacing} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+          <Racing
+            style={{
+              width: "31px",
+              height: "36px",
+              border: "1px transparent",
+              borderRadius: "8px",
+              padding: "6px 5px 4px",
+              cursor: "pointer",
+              transition: "all .2s",
+              fill: "#fff",
+            }}
+          />
             <H3Text>Racing</H3Text>
           </Button>
         </ButtonSideBar>
         <ButtonSideBar>
-          <Button sx={{ textTransform: "none", gap: "15px", p: '0'}}>
-            <Icon src={Sports} alt="icon"/>
+          <Button onClick={handleSports} sx={{ textTransform: "none", gap: "15px", p: '0'}}>
+            <Sports
+              style={{
+                width: "31px",
+                height: "36px",
+                border: "1px transparent",
+                borderRadius: "8px",
+                padding: "6px 5px 4px",
+                cursor: "pointer",
+                transition: "all .2s",
+                fill: "#fff",
+              }}
+            />
             <H3Text>Sports</H3Text>
           </Button>
         </ButtonSideBar>
@@ -137,19 +301,9 @@ function SideBar() {
   )
 }
 
-const Icon = styled("img")({
-  width: "39px",
-  height: "43px",
-  border: "1px transparent",
-  borderRadius: "8px",
-  padding: "6px 5px 4px",
-  cursor: "pointer",
-  transition: "all .2s",
-  fill: "#fff",
-});
-
 const ButtonSideBar = styled("div")({
   width: "270px",
+  height: "45px",
   paddingTop: "10px",
   background: "#000",
   cursor: "pointer",
@@ -170,8 +324,9 @@ const ButtonSideBar = styled("div")({
 const H3Title = styled("h3")({
   color: "#fff",
   fontSize: "25px",
+  height:"30px",
   letterSpacing: "1px",
-  marginBottom: "22px",
+  marginBottom: "12px",
   marginTop: "22px",
   whiteSpace: "nowrap",
 });

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -7,36 +7,46 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { ProductType } from "../../../@type/cart";
+import { Link, useNavigate } from "react-router-dom";
+import { ProductType as ProductTypeCart } from "../../../@type/cart";
 import IconAdd from "../../../assets/images/add.svg";
 import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
-import { CartContext } from "../../../context/CartContext"
-import { putData, postData } from "../../../method";
-import { ProductContext } from "../../../context/ProductContext";
-import { useAtom } from "jotai";
-import { productAtom } from "../../../store/Atom";
+import { CartContext, handleAddCart } from "../../../context/CartContext";
+import { ProductContext, handleLike } from "../../../context/ProductContext";
+import { Navigate } from "react-router-dom";
+import { ProductType } from "../../../@type/product";
+// import { putData, postData } from "../../../method";
+// import { useAtom } from "jotai";
+// import { productAtom } from "../../../store/Atom";
 
-const Product = ({ id, to, src, name, money, like }: ProductType) => {
-  const [add, setAdd] = useState<string>("Add to cart");
+const Product = ({
+  id,
+  to,
+  src,
+  name,
+  money,
+  like,
+  isAdded,
+}: ProductTypeCart) => {
+  let navigate = useNavigate();
+  const [add, setAdd] = useState<boolean>(isAdded);
   const [isLike, setIsLike] = useState<boolean>(like);
   const { cart, setCart } = useContext(CartContext);
-  const {dataWishlist, setDataWishlist} = useContext(ProductContext)
-  const handleLike = () => {
-    setIsLike(!isLike);
-    putData(`products/${id}`, {
-      wishlist: !isLike,      
-    }).then((res) => {
-      setDataWishlist([...dataWishlist, res?.data])
-    }).then(() => {
-      
-    })
-  }
-  const [data , setData] =useAtom(productAtom)
-  const handleAddCart = () => {
-    postData("cart", { id: id, name: name, money: money }).then((res) => setCart([res.data, ...cart]));
-    setAdd("Added");
+  const { allData, setAllData } = useContext(ProductContext);
+  const [product, setProduct] = useState<ProductType>(allData[id]);
+
+  // const [data , setData] =useAtom(productAtom)
+  const handleAddCartProduct = () => {
+    setAdd(true);
+    handleAddCart(id, allData, setAllData, cart, setCart);
   };
+  const handleLikeCart = () => {
+    setProduct({ ...product, isLiked: !product.isLiked });
+    handleLike(product.id, allData, setAllData);
+  };
+  useEffect(() => {
+    setProduct(allData[id]);
+  }, [id]);
 
   return (
     <Card
@@ -44,16 +54,15 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
         minWidth: "280px",
         maxWidth: "500px",
         borderRadius: "12px",
-        width: "100%",
         transition: "all 0.3s",
         border: "1px transparent",
         backgroundColor: "#202020",
       }}
     >
-      <Link to='/store'>
+      <Link to={to}>
         <CardMedia
           component="img"
-          image={src}
+          image={product.cover}
           alt="green iguana"
           sx={{
             minHeight: "160px",
@@ -70,9 +79,9 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
             textTransform: "none",
             gap: "15px",
           }}
-          onClick={handleAddCart}
+          onClick={handleAddCartProduct}
         >
-          {add}
+          Add to cart
           <img
             src={IconAdd}
             alt="icon"
@@ -94,13 +103,13 @@ const Product = ({ id, to, src, name, money, like }: ProductType) => {
         >
           {name}
         </Link>
-        <Button onClick={handleLike}>
+        <Button onClick={handleLikeCart}>
           <IconLike
             style={{
               height: "18px",
               width: "18px",
               marginTop: "20px",
-              fill: isLike ? "red" : "rgb(204, 204, 204)",
+              fill: product.isLiked ? "red" : "rgb(204, 204, 204)",
             }}
           />
         </Button>
