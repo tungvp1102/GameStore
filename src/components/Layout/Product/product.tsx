@@ -7,15 +7,15 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ProductType as ProductTypeCart } from "../../../@type/cart";
 import IconAdd from "../../../assets/images/add.svg";
 import IconAdded from "../../../assets/images/added.svg";
 import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
 import { CartContext, handleAddCart } from "../../../context/CartContext";
 import { ProductContext, handleLike } from "../../../context/ProductContext";
-import { Navigate } from "react-router-dom";
 import { ProductType } from "../../../@type/product";
+// import { Navigate } from "react-router-dom";
 // import { putData, postData } from "../../../method";
 // import { useAtom } from "jotai";
 // import { productAtom } from "../../../store/Atom";
@@ -23,15 +23,10 @@ import { ProductType } from "../../../@type/product";
 const Product = ({
   id,
   to,
-  src,
   name,
   money,
-  like,
-  isAdded,
 }: ProductTypeCart) => {
-  let navigate = useNavigate();
-  const [add, setAdd] = useState<boolean>(isAdded);
-  const [isLike, setIsLike] = useState<boolean>(like);
+  // let navigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
   const { allData, setAllData } = useContext(ProductContext);
   const [product, setProduct] = useState<ProductType>(allData[id]);
