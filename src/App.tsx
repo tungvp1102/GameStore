@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Browse from "./Pages/Browse/Browse";
@@ -27,7 +26,9 @@ function App() {
                 <Route path="/store" element={<Store />}>
                   <Route path="/store" element={<Outlet />} />
                 </Route>
+                
                 <Route path="/store/:productID" element={<Game />} />
+                
                 <Route path="/cart" element={<Cart />} />
               </Route>
               <Route path="/404" element={<ErrorPage />} />

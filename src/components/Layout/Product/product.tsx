@@ -10,6 +10,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { ProductType as ProductTypeCart } from "../../../@type/cart";
 import IconAdd from "../../../assets/images/add.svg";
+import IconAdded from "../../../assets/images/added.svg";
 import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
 import { CartContext, handleAddCart } from "../../../context/CartContext";
 import { ProductContext, handleLike } from "../../../context/ProductContext";
@@ -37,7 +38,7 @@ const Product = ({
 
   // const [data , setData] =useAtom(productAtom)
   const handleAddCartProduct = () => {
-    setAdd(true);
+    setProduct({ ...product, inCart: true });
     handleAddCart(id, allData, setAllData, cart, setCart);
   };
   const handleLikeCart = () => {
@@ -71,23 +72,50 @@ const Product = ({
         />
       </Link>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button
-          size="small"
-          sx={{
-            color: "rgb(153, 153, 153)",
-            fontSize: "16px ",
-            textTransform: "none",
-            gap: "15px",
-          }}
-          onClick={handleAddCartProduct}
-        >
-          Add to cart
-          <img
-            src={IconAdd}
-            alt="icon"
-            style={{ height: "14px", width: "14px" }}
-          />
-        </Button>
+        {product.inCart === true ? (
+          <Typography
+            paragraph
+            sx={{
+              margin: "8px",
+              color: "#90ee90",
+              fontSize: "16px ",
+              fontWeight: "700",
+            }}
+          >
+            Added
+            <img
+              src={IconAdded}
+              alt="icon"
+              style={{
+                height: "14px",
+                width: "14px",
+                marginLeft: "6px",
+              }}
+            />
+          </Typography>
+        ) : (
+          <Button
+            size="small"
+            sx={{
+              color: "rgb(153, 153, 153)",
+              fontSize: "14px ",
+              textTransform: "none",
+              fontWeight: "700",
+            }}
+            onClick={handleAddCartProduct}
+          >
+            Add to cart
+            <img
+              src={IconAdd}
+              alt="icon"
+              style={{
+                height: "14px",
+                width: "14px",
+                marginLeft: "15px",
+              }}
+            />
+          </Button>
+        )}
         <Typography variant="h6" sx={{ color: "#fff" }}>
           ${money}
         </Typography>
@@ -103,7 +131,7 @@ const Product = ({
         >
           {name}
         </Link>
-        <Button onClick={handleLikeCart}>
+        <Button disableRipple onClick={handleLikeCart}>
           <IconLike
             style={{
               height: "18px",

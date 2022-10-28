@@ -3,13 +3,11 @@ import { useEffect, useState } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { ReactComponent as IconColumns } from "../../../assets/images/columns.svg";
 import { ReactComponent as IconGrid } from "../../../assets/images/grid.svg";
-import styled from "@emotion/styled";
 // import {useAtom} from 'jotai'
 // import axios from "axios";
 // import { productAtom } from "../../../store/Atom";
 import Product from "../Product/Product";
 import { ProductContext } from "../../../context/ProductContext";
-import { ProductType } from "../../../@type/product";
 import { CartContext } from "../../../context/CartContext";
 // interface Props {
 //   product: ProductType[];
@@ -208,5 +206,3 @@ export const Outlet = () => {
     </Box>
   );
 };
-
-

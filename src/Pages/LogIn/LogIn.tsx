@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import Home from "../Home/Home";
+import { CartContext } from "../../context/CartContext";
+import { postData } from "../../method";
 
 const LogIn = () => {
+  const { setUsers } = useContext(CartContext);
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
-  const [flag, setFlag] = useState(false);
+  //const [flag, setFlag] = useState(false);
   const [home, setHome] = useState(true);
   const navigate = useNavigate();
-
 
   const handleChange = (e: any) => {
     setInputs((prevState) => ({
@@ -22,16 +24,33 @@ const LogIn = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    let mail = localStorage.getItem("Email")?.replace(/"/g,"");
-    let pass = localStorage.getItem("Password")?.replace(/"/g,"");
-
+    let mail = localStorage.getItem("Email")?.trim();
+    let pass = localStorage.getItem("Password")?.trim();
     if(!inputs.email || !inputs.password){
-        setFlag(true);
+        //setFlag(true);
         console.log("empty");
+        return
 
-    }else if (inputs.password === pass || inputs.email === mail){
+    }else if (inputs.password.trim() === pass && inputs.email.trim() === mail){
         navigate("/", { replace: true });
-    }
+        return
+    } 
+
+     navigate("/signup");
+  };
+
+  const handleSubmitLogin = () => {
+    setUsers(inputs.email);
+    postData("user", {
+      password: inputs.password,
+      account: inputs.email,
+    })
+      .then((res) => {
+        return navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   
   return (
@@ -58,7 +77,6 @@ const LogIn = () => {
               <Typography variant="h2" padding={3} textAlign="center">
                 Login
               </Typography>
-    
               <TextField
                 onChange={handleChange}
                 value={inputs.email}
@@ -85,6 +103,7 @@ const LogIn = () => {
                 }}
                 variant="contained"
                 color="warning"
+                onClick={handleSubmit}
               >
                 Login
               </Button>

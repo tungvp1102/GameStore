@@ -9,6 +9,8 @@ export interface CartType {
 export type CartContextType = {
   cart: CartType[];
   setCart: Setter<CartType[]>
+  users: string;
+  setUsers: Setter<string>;
 };
 
 export interface ProductType {

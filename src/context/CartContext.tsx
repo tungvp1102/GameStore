@@ -33,9 +33,14 @@ const CartProvider: React.FC<PropChildren> = ({ children }) => {
         []
       );
     
+      const [users, setUsers] = useLocalStorage<string>(
+        "auth",
+        ""
+      );
+    
     // const [cart, setCart] = React.useState<CartType[]>([]);
     return ( 
-        <CartContext.Provider value={{cart, setCart}}>
+        <CartContext.Provider value={{cart, setCart, users, setUsers}}>
             {children}
         </CartContext.Provider>
     );

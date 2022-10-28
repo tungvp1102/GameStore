@@ -1,10 +1,10 @@
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-   
-    const [isSignup, setIsSignup] = useState(false);
+    let navigate = useNavigate();
+    // const [isSignup, setIsSignup] = useState(false);
     const [inputs, setInputs] = useState({
         name:"", email:"", password:"",
     });
@@ -22,11 +22,12 @@ const SignUp = () => {
             setFlag(true);
         }else{
             setFlag(false);
-            localStorage.setItem("Email", JSON.stringify(inputs.email));
-            localStorage.setItem("Password", JSON.stringify(inputs.password));
+            localStorage.setItem("Email", inputs.email);
+            localStorage.setItem("Password", inputs.password);
 
             console.log("Saved in local strorage")
         }
+        return navigate("/log-in");
     };
 
   return (

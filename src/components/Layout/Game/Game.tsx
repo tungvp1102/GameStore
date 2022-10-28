@@ -23,6 +23,7 @@ import { CartContext, handleAddCart } from "../../../context/CartContext";
 import { handleLike, ProductContext } from "../../../context/ProductContext";
 import { ProductType } from "../../../@type/product";
 import IconAdd from "../../../assets/images/add.svg";
+import IconAdded from "../../../assets/images/added.svg";
 import { ReactComponent as IconLike } from "../../../assets/images/like.svg";
 import styled from "@emotion/styled";
 
@@ -265,7 +266,7 @@ function Game() {
                 >
                   Added
                   <img
-                    src={IconAdd}
+                    src={IconAdded}
                     alt="icon"
                     style={{
                       height: "14px",
